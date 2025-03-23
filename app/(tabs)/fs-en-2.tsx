@@ -1,67 +1,55 @@
-import React from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  Image,
-  StyleSheet,
-} from "react-native";
+import React from 'react';
+import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 
-const LoginScreen = () => {
-  const handleLogin = () => {
-    // Handle login logic
-  };
-
-  const handleForgotPassword = () => {
-    // Handle forgot password logic
+const ProductDetailScreen = () => {
+  // Hardcoded product information
+  const product = {
+    name: 'Wireless Headphones',
+    description: 'High-quality wireless headphones with noise cancellation and 20-hour battery life.',
+    price: '$199.99',
+    imageUrl: 'https://example.com/headphones.jpg',
   };
 
   return (
     <View style={styles.container}>
+      {/* Product Image */}
       <Image
-        source={{ uri: "https://via.placeholder.com/150" }} // Replace with your image URL
-        alt="Company Logo"
-        style={styles.logo}
+        source={{ uri: product.imageUrl }}
+        style={styles.image}
+        accessibilityLabel={`Image of ${product.name}`}
       />
 
-      <Text nativeID="usernameLabel" style={styles.label}>
-        Username/Email
+      {/* Product Name */}
+      <Text style={styles.productName} accessibilityRole="header">
+        {product.name}
       </Text>
-      <TextInput
-        style={styles.input}
-        accessibilityLabelledBy="usernameLabel"
-        autoComplete="username"
-        textContentType="username"
-        placeholder="Enter username or email"
-      />
 
-      <Text nativeID="passwordLabel" style={styles.label}>
-        Password
+      {/* Product Description */}
+      <Text style={styles.productDescription}>
+        {product.description}
       </Text>
-      <TextInput
-        style={styles.input}
-        accessibilityLabelledBy="passwordLabel"
-        secureTextEntry={true}
-        placeholder="Enter password"
-      />
 
+      {/* Product Price */}
+      <Text style={styles.productPrice}>
+        {product.price}
+      </Text>
+
+      {/* Add to Cart Button */}
       <TouchableOpacity
         style={styles.button}
-        onPress={handleLogin}
-        accessible={true}
-        accessibilityLabel="Log In"
+        accessibilityLabel={`Add ${product.name} to cart`}
+        accessibilityRole="button"
       >
-        <Text style={styles.buttonText}>Log In</Text>
+        <Text style={styles.buttonText}>Add to Cart</Text>
       </TouchableOpacity>
 
+      {/* Add to Favorites Button */}
       <TouchableOpacity
-        style={styles.forgotPasswordButton}
-        onPress={handleForgotPassword}
-        accessible={true}
-        accessibilityLabel="Forgot Password"
+        style={styles.button}
+        accessibilityLabel={`Add ${product.name} to favorites`}
+        accessibilityRole="button"
       >
-        <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
+        <Text style={styles.buttonText}>Add to Favorites</Text>
       </TouchableOpacity>
     </View>
   );
@@ -70,53 +58,47 @@ const LoginScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    padding: 20,
-    backgroundColor: "#FFFFFF", // White background for good contrast
+    padding: 16,
+    backgroundColor: '#FFFFFF',
   },
-  logo: {
-    width: 150,
-    height: 150,
-    alignSelf: "center",
-    marginBottom: 20,
+  image: {
+    width: '100%',
+    height: 200,
+    resizeMode: 'contain',
+    marginBottom: 16,
   },
-  label: {
-    marginBottom: 5,
-    color: "#333333", // Dark text for good contrast
+  productName: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#000000', // High contrast with white background
+    marginBottom: 8,
   },
-  input: {
-    height: 48, // Minimum touch target size
-    borderColor: "#CCCCCC",
-    borderWidth: 1,
-    marginBottom: 15,
-    padding: 10,
-    borderRadius: 5,
-    color: "#000000", // Black text for good contrast
+  productDescription: {
+    fontSize: 16,
+    color: '#333333', // High contrast with white background
+    marginBottom: 16,
+  },
+  productPrice: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#000000', // High contrast with white background
+    marginBottom: 24,
   },
   button: {
-    backgroundColor: "#007AFF", // Blue button for good contrast
-    padding: 15,
-    borderRadius: 5,
-    alignItems: "center",
-    marginTop: 20,
+    backgroundColor: '#007AFF',
     minWidth: 48,
     minHeight: 48,
-    margin: 8,
+    padding: 12,
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 16,
   },
   buttonText: {
-    color: "#FFFFFF", // White text for good contrast
+    color: '#FFFFFF', // High contrast with button background
     fontSize: 16,
-  },
-  forgotPasswordButton: {
-    marginTop: 10,
-    alignSelf: "center",
-    minWidth: 48,
-    minHeight: 48,
-    margin: 8,
-  },
-  forgotPasswordText: {
-    color: "#007AFF", // Blue text for good contrast
+    fontWeight: 'bold',
   },
 });
 
-export default LoginScreen;
+export default ProductDetailScreen;

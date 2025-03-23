@@ -1,115 +1,104 @@
-import React from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
-  Image,
-  SafeAreaView,
-} from "react-native";
+import React from 'react';
+import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 
-export default function LoginScreen() {
+const ProductDetailScreen = () => {
+  // Hardcoded product information
+  const product = {
+    name: 'Wireless Noise-Cancelling Headphones',
+    description: 'Experience premium sound quality with these wireless noise-cancelling headphones. Perfect for music lovers and frequent travelers.',
+    price: '$199.99',
+    imageUrl: 'https://example.com/headphones.jpg',
+  };
+
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.content}>
-        <Image
-          source={{ uri: "https://via.placeholder.com/150" }} // Replace with your image URL
-          alt="App Logo"
-          style={styles.logo}
-          accessibilityLabel="App Logo"
-        />
+    <View style={styles.container}>
+      {/* Product Image */}
+      <Image
+        source={{ uri: product.imageUrl }}
+        style={styles.image}
+        accessibilityLabel={`Image of ${product.name}`}
+      />
 
-        <Text nativeID="usernameLabel" style={styles.label}>
-          Username or Email
-        </Text>
-        <TextInput
-          style={styles.input}
-          accessibilityLabelledBy="usernameLabel"
-          autoComplete="username"
-          textContentType="username"
-          placeholder="Enter username or email"
-        />
+      {/* Product Name */}
+      <Text style={styles.productName} accessibilityRole="header">
+        {product.name}
+      </Text>
 
-        <Text nativeID="passwordLabel" style={styles.label}>
-          Password
-        </Text>
-        <TextInput
-          style={styles.input}
-          accessibilityLabelledBy="passwordLabel"
-          secureTextEntry={true}
-          placeholder="Enter password"
-          textContentType="password"
-        />
+      {/* Product Description */}
+      <Text style={styles.productDescription}>
+        {product.description}
+      </Text>
 
-        <TouchableOpacity style={styles.button} accessibilityLabel="Log In">
-          <Text style={styles.buttonText}>Log In</Text>
-        </TouchableOpacity>
+      {/* Product Price */}
+      <Text style={styles.productPrice}>
+        {product.price}
+      </Text>
 
-        <TouchableOpacity
-          style={styles.forgotPassword}
-          accessibilityLabel="Forgot Password"
-        >
-          <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
-        </TouchableOpacity>
-      </View>
-    </SafeAreaView>
+      {/* Add to Cart Button */}
+      <TouchableOpacity
+        style={styles.button}
+        accessibilityLabel={`Add ${product.name} to cart`}
+        accessibilityRole="button"
+      >
+        <Text style={styles.buttonText}>Add to Cart</Text>
+      </TouchableOpacity>
+
+      {/* Add to Favorites Button */}
+      <TouchableOpacity
+        style={styles.button}
+        accessibilityLabel={`Add ${product.name} to favorites`}
+        accessibilityRole="button"
+      >
+        <Text style={styles.buttonText}>Add to Favorites</Text>
+      </TouchableOpacity>
+    </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FFFFFF", // Light background for good contrast
-    justifyContent: "center",
+    padding: 16,
+    backgroundColor: '#FFFFFF',
   },
-  content: {
-    padding: 20,
+  image: {
+    width: '100%',
+    height: 200,
+    resizeMode: 'contain',
+    marginBottom: 16,
   },
-  logo: {
-    width: 150,
-    height: 150,
-    alignSelf: "center",
-    marginBottom: 20,
+  productName: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#000000', // High contrast with white background
+    marginBottom: 8,
   },
-  label: {
+  productDescription: {
     fontSize: 16,
-    marginBottom: 5,
-    color: "#333333", // Dark text for good contrast
+    color: '#333333', // High contrast with white background
+    marginBottom: 16,
   },
-  input: {
-    height: 48, // Minimum touch target size
-    borderColor: "#CCCCCC",
-    borderWidth: 1,
-    marginBottom: 10,
-    paddingHorizontal: 10,
-    borderRadius: 8,
-    fontSize: 16,
-    color: "#333333", // Dark text for good contrast
+  productPrice: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#000000', // High contrast with white background
+    marginBottom: 24,
   },
   button: {
-    backgroundColor: "#007AFF", // Blue button for good contrast
-    padding: 15,
-    alignItems: "center",
+    minWidth: '100%',
+    minHeight: 48, // Meets minimum touch target size
+    backgroundColor: '#007AFF',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 12,
     borderRadius: 8,
-    marginTop: 20,
-    minWidth: 48,
-    minHeight: 48,
-    margin: 8,
+    marginBottom: 12,
   },
   buttonText: {
-    color: "#FFFFFF", // White text on blue for good contrast
-    fontSize: 18,
-  },
-  forgotPassword: {
-    marginTop: 10,
-    alignItems: "center",
-    minWidth: 48,
-    minHeight: 48,
-    margin: 8,
-  },
-  forgotPasswordText: {
-    color: "#007AFF",
     fontSize: 16,
+    fontWeight: 'bold',
+    color: '#FFFFFF', // High contrast with button background
   },
 });
+
+export default ProductDetailScreen;

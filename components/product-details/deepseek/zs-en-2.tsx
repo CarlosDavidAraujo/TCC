@@ -5,7 +5,7 @@ const ProductDetailScreen = () => {
   // Hardcoded product information
   const product = {
     name: 'Wireless Headphones',
-    description: 'High-quality noise-cancelling wireless headphones with 20-hour battery life.',
+    description: 'High-quality wireless headphones with noise cancellation and 20-hour battery life.',
     price: '$199.99',
     imageUrl: 'https://example.com/headphones.jpg',
   };
@@ -17,22 +17,42 @@ const ProductDetailScreen = () => {
         source={{ uri: product.imageUrl }}
         style={styles.image}
         accessibilityLabel={`Image of ${product.name}`}
+        accessible
       />
 
       {/* Product Name */}
-      <Text style={styles.productName}>{product.name}</Text>
+      <Text
+        style={styles.productName}
+        accessibilityRole="header"
+        accessible
+      >
+        {product.name}
+      </Text>
 
       {/* Product Description */}
-      <Text style={styles.productDescription}>{product.description}</Text>
+      <Text
+        style={styles.productDescription}
+        accessibilityRole="text"
+        accessible
+      >
+        {product.description}
+      </Text>
 
       {/* Product Price */}
-      <Text style={styles.productPrice}>{product.price}</Text>
+      <Text
+        style={styles.productPrice}
+        accessibilityRole="text"
+        accessible
+      >
+        {product.price}
+      </Text>
 
       {/* Add to Cart Button */}
       <TouchableOpacity
         style={styles.button}
         accessibilityLabel={`Add ${product.name} to cart`}
         accessibilityRole="button"
+        accessible
       >
         <Text style={styles.buttonText}>Add to Cart</Text>
       </TouchableOpacity>
@@ -42,6 +62,7 @@ const ProductDetailScreen = () => {
         style={styles.button}
         accessibilityLabel={`Add ${product.name} to favorites`}
         accessibilityRole="button"
+        accessible
       >
         <Text style={styles.buttonText}>Add to Favorites</Text>
       </TouchableOpacity>
@@ -57,41 +78,40 @@ const styles = StyleSheet.create({
   },
   image: {
     width: '100%',
-    height: 200,
+    height: 300,
     resizeMode: 'contain',
     marginBottom: 16,
   },
   productName: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#000000', // High contrast with white background
+    color: '#000000', // High contrast for text
     marginBottom: 8,
   },
   productDescription: {
     fontSize: 16,
-    color: '#333333', // Sufficient contrast with white background
+    color: '#333333', // Sufficient contrast for text
     marginBottom: 16,
   },
   productPrice: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#000000', // High contrast with white background
+    color: '#000000', // High contrast for text
     marginBottom: 24,
   },
   button: {
-    minWidth: '100%',
-    minHeight: 48, // Minimum touch target size
-    backgroundColor: '#007AFF',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: '#007AFF', // Sufficient contrast for button background
+    paddingVertical: 12,
+    paddingHorizontal: 24,
     borderRadius: 8,
-    padding: 12,
-    marginBottom: 12,
+    marginBottom: 16,
+    minWidth: 200, // Adequate touch target size
+    alignItems: 'center',
   },
   buttonText: {
+    color: '#FFFFFF', // High contrast for button text
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#FFFFFF', // High contrast with button background
   },
 });
 
