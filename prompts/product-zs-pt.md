@@ -4,6 +4,6 @@ A tela exibe informações sobre um produto, incluindo seu nome, descrição, pr
 
 Certifique-se de que o código aborde os seguintes aspectos de acessibilidade:
 
-* Contraste de texto suficiente.
-* Rotulagem adequada para leitores de tela.
-* Tamanhos de alvo de toque adequados para todos os elementos interativos.
+- Contraste de texto suficiente.
+- Rotulagem adequada para leitores de tela.
+- Tamanhos de alvo de toque adequados para todos os elementos interativos.

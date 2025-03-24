@@ -1,48 +1,88 @@
-import React from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import React from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  TouchableOpacity,
+  Image,
+  StyleSheet,
+} from "react-native";
 
-const ProductDetailScreen = () => {
-  // Informações do produto (hardcoded)
-  const product = {
-    name: 'Smartphone XYZ',
-    description: 'Um smartphone avançado com câmera de alta resolução e bateria de longa duração.',
-    price: 'R$ 2.499,99',
-    imageUrl: 'https://example.com/smartphone-xyz.jpg',
-  };
-
+const PerfilScreen = () => {
   return (
     <View style={styles.container}>
-      {/* Imagem do produto */}
-      <Image
-        source={{ uri: product.imageUrl }}
-        style={styles.productImage}
-        accessibilityLabel={`Imagem do produto ${product.name}`}
-      />
+      {/* Foto de perfil */}
+      <View style={styles.profileImageContainer}>
+        <Image
+          source={{ uri: "https://example.com/profile.jpg" }}
+          style={styles.profileImage}
+          accessibilityLabel="Foto de perfil do usuário"
+        />
+      </View>
 
-      {/* Nome do produto */}
-      <Text style={styles.productName}>{product.name}</Text>
+      {/* Informações Pessoais */}
+      <View style={styles.infoContainer}>
+        <Text style={styles.sectionTitle}>Informações Pessoais</Text>
 
-      {/* Descrição do produto */}
-      <Text style={styles.productDescription}>{product.description}</Text>
+        <Text style={styles.label} accessibilityLabel="Nome">
+          Nome
+        </Text>
+        <TextInput
+          style={styles.input}
+          defaultValue="João Silva"
+          accessibilityLabel="Nome do usuário"
+          editable={false} // Não permite edição
+        />
 
-      {/* Preço do produto */}
-      <Text style={styles.productPrice}>{product.price}</Text>
+        <Text style={styles.label} accessibilityLabel="Sobrenome">
+          Sobrenome
+        </Text>
+        <TextInput
+          style={styles.input}
+          defaultValue="Silva"
+          accessibilityLabel="Sobrenome do usuário"
+          editable={false} // Não permite edição
+        />
 
-      {/* Botão para adicionar ao carrinho */}
-      <TouchableOpacity
-        style={styles.button}
-        accessibilityLabel={`Adicionar ${product.name} ao carrinho`}
-      >
-        <Text style={styles.buttonText}>Adicionar ao Carrinho</Text>
-      </TouchableOpacity>
+        <Text style={styles.label} accessibilityLabel="Email">
+          E-mail
+        </Text>
+        <TextInput
+          style={styles.input}
+          defaultValue="joao.silva@example.com"
+          accessibilityLabel="E-mail do usuário"
+          editable={false} // Não permite edição
+        />
 
-      {/* Botão para adicionar aos favoritos */}
-      <TouchableOpacity
-        style={styles.button}
-        accessibilityLabel={`Adicionar ${product.name} aos favoritos`}
-      >
-        <Text style={styles.buttonText}>Adicionar aos Favoritos</Text>
-      </TouchableOpacity>
+        <Text style={styles.label} accessibilityLabel="Telefone">
+          Telefone
+        </Text>
+        <TextInput
+          style={styles.input}
+          defaultValue="(11) 98765-4321"
+          accessibilityLabel="Número de telefone do usuário"
+          editable={false} // Não permite edição
+        />
+      </View>
+
+      {/* Botões de Editar e Salvar */}
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity
+          style={styles.button}
+          accessibilityLabel="Editar perfil"
+        >
+          <Text style={styles.buttonText}>Editar</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.button}
+          accessibilityLabel="Salvar alterações"
+          onPress={() => alert("Salvo!")}
+        >
+          <Text style={styles.buttonText}>Salvar</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -51,46 +91,58 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
   },
-  productImage: {
-    width: '100%',
-    height: 200,
-    resizeMode: 'contain',
+  profileImageContainer: {
+    alignItems: "center",
     marginBottom: 16,
   },
-  productName: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#000000', // Contraste adequado com o fundo branco
-    marginBottom: 8,
+  profileImage: {
+    width: 120,
+    height: 120,
+    borderRadius: 60,
   },
-  productDescription: {
-    fontSize: 16,
-    color: '#333333', // Contraste adequado com o fundo branco
-    marginBottom: 16,
-  },
-  productPrice: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#006600', // Verde escuro para contraste adequado
+  infoContainer: {
     marginBottom: 24,
   },
-  button: {
-    backgroundColor: '#007BFF',
-    minWidth: 48,
-    minHeight: 48,
-    padding: 12,
+  sectionTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#000000",
+    marginBottom: 8,
+  },
+  label: {
+    fontSize: 16,
+    color: "#000000",
+    marginBottom: 4,
+  },
+  input: {
+    height: 40,
+    borderColor: "#CCCCCC",
+    borderWidth: 1,
     borderRadius: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 16,
+    paddingLeft: 8,
+    marginBottom: 12,
+    color: "#000000",
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  button: {
+    minWidth: 120,
+    height: 48,
+    backgroundColor: "#4CAF50",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 8,
+    paddingHorizontal: 16,
   },
   buttonText: {
-    color: '#FFFFFF', // Texto branco para contraste adequado com o fundo azul
+    color: "#FFFFFF",
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
 });
 
-export default ProductDetailScreen;
+export default PerfilScreen;

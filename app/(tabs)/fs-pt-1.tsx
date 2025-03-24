@@ -1,47 +1,64 @@
-import React from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import React from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Image,
+  StyleSheet,
+  Button,
+} from "react-native";
 
-const ProductDetailScreen = () => {
-  // Informações do produto (hardcoded)
-  const product = {
-    name: 'Smartphone XYZ',
-    description: 'Um smartphone avançado com câmera de 48MP e bateria de longa duração.',
-    price: 'R$ 1.999,99',
-    imageUrl: 'https://example.com/smartphone-xyz.jpg',
-  };
-
+const PerfilScreen = () => {
   return (
     <View style={styles.container}>
-      {/* Imagem do produto */}
-      <Image
-        source={{ uri: product.imageUrl }}
-        style={styles.productImage}
-        accessibilityLabel={`Imagem do produto ${product.name}`}
-      />
+      {/* Foto de Perfil */}
+      <View style={styles.profileImageContainer}>
+        <Image
+          source={{ uri: "https://example.com/foto-de-perfil.jpg" }}
+          style={styles.profileImage}
+          accessibilityLabel="Foto de perfil do usuário"
+        />
+      </View>
 
-      {/* Nome do produto */}
-      <Text style={styles.productName}>{product.name}</Text>
+      {/* Informações Pessoais */}
+      <View style={styles.infoContainer}>
+        <Text style={styles.infoLabel} accessibilityRole="text">
+          Nome
+        </Text>
+        <Text style={styles.infoText}>João Silva</Text>
 
-      {/* Descrição do produto */}
-      <Text style={styles.productDescription}>{product.description}</Text>
+        <Text style={styles.infoLabel} accessibilityRole="text">
+          Sobrenome
+        </Text>
+        <Text style={styles.infoText}>Silva</Text>
 
-      {/* Preço do produto */}
-      <Text style={styles.productPrice}>{product.price}</Text>
+        <Text style={styles.infoLabel} accessibilityRole="text">
+          E-mail
+        </Text>
+        <Text style={styles.infoText}>joao.silva@email.com</Text>
 
-      {/* Botão para adicionar ao carrinho */}
+        <Text style={styles.infoLabel} accessibilityRole="text">
+          Telefone
+        </Text>
+        <Text style={styles.infoText}>+55 11 91234-5678</Text>
+      </View>
+
+      {/* Botões */}
       <TouchableOpacity
-        style={styles.button}
-        accessibilityLabel={`Adicionar ${product.name} ao carrinho`}
+        style={styles.editButton}
+        accessibilityLabel="Editar informações do perfil"
+        onPress={() => alert("Abrir tela de edição")}
       >
-        <Text style={styles.buttonText}>Adicionar ao Carrinho</Text>
+        <Text style={styles.buttonText}>Editar</Text>
       </TouchableOpacity>
 
-      {/* Botão para adicionar aos favoritos */}
       <TouchableOpacity
-        style={styles.button}
-        accessibilityLabel={`Adicionar ${product.name} aos favoritos`}
+        style={styles.saveButton}
+        accessibilityLabel="Salvar informações do perfil"
+        onPress={() => alert("Salvar alterações")}
       >
-        <Text style={styles.buttonText}>Adicionar aos Favoritos</Text>
+        <Text style={styles.buttonText}>Salvar</Text>
       </TouchableOpacity>
     </View>
   );
@@ -50,47 +67,57 @@ const ProductDetailScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#FFFFFF",
     padding: 16,
-    backgroundColor: '#FFFFFF',
   },
-  productImage: {
-    width: '100%',
-    height: 200,
-    resizeMode: 'contain',
-    marginBottom: 16,
+  profileImageContainer: {
+    alignItems: "center",
+    marginBottom: 20,
   },
-  productName: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#000000', // Contraste adequado com fundo branco
+  profileImage: {
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+  },
+  infoContainer: {
+    marginBottom: 30,
+  },
+  infoLabel: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#000000", // Contraste adequado
     marginBottom: 8,
   },
-  productDescription: {
-    fontSize: 16,
-    color: '#333333', // Contraste adequado com fundo branco
-    marginBottom: 16,
+  infoText: {
+    fontSize: 14,
+    color: "#333333", // Contraste adequado
+    marginBottom: 12,
   },
-  productPrice: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#006600', // Contraste adequado com fundo branco
-    marginBottom: 24,
+  editButton: {
+    backgroundColor: "#007BFF",
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    borderRadius: 5,
+    minWidth: 150,
+    minHeight: 48, // Tamanho mínimo adequado para o alvo de toque
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 10,
   },
-  button: {
-    backgroundColor: '#007BFF',
-    minWidth: 48,
-    minHeight: 48,
-    padding: 12,
-    borderRadius: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 16,
+  saveButton: {
+    backgroundColor: "#28A745",
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    borderRadius: 5,
+    minWidth: 150,
+    minHeight: 48, // Tamanho mínimo adequado para o alvo de toque
+    justifyContent: "center",
+    alignItems: "center",
   },
   buttonText: {
-    color: '#FFFFFF', // Contraste adequado com fundo azul
+    color: "#FFFFFF",
     fontSize: 16,
-    fontWeight: 'bold',
   },
 });
 
-export default ProductDetailScreen;
+export default PerfilScreen;

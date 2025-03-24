@@ -1,55 +1,89 @@
-import React from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import React from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Image,
+  StyleSheet,
+} from "react-native";
 
-const ProductDetailScreen = () => {
-  // Hardcoded product information
-  const product = {
-    name: 'Wireless Noise-Cancelling Headphones',
-    description: 'Experience premium sound quality with these wireless noise-cancelling headphones. Perfect for music lovers and frequent travelers.',
-    price: '$199.99',
-    imageUrl: 'https://example.com/headphones.jpg',
-  };
-
+const ProfileScreen = () => {
   return (
     <View style={styles.container}>
-      {/* Product Image */}
-      <Image
-        source={{ uri: product.imageUrl }}
-        style={styles.image}
-        accessibilityLabel={`Image of ${product.name}`}
+      {/* Profile Picture */}
+      <View style={styles.profilePictureContainer}>
+        <Image
+          source={{ uri: "https://example.com/profile-picture.jpg" }}
+          style={styles.profilePicture}
+          accessibilityLabel="Profile picture"
+        />
+      </View>
+
+      {/* First Name */}
+      <Text nativeID="firstNameLabel" style={styles.label}>
+        First Name
+      </Text>
+      <TextInput
+        accessibilityLabelledBy="firstNameLabel"
+        style={styles.input}
+        placeholder="Enter first name"
+        placeholderTextColor="#B0B0B0"
+        textContentType="givenName"
       />
 
-      {/* Product Name */}
-      <Text style={styles.productName} accessibilityRole="header">
-        {product.name}
+      {/* Last Name */}
+      <Text nativeID="lastNameLabel" style={styles.label}>
+        Last Name
       </Text>
+      <TextInput
+        accessibilityLabelledBy="lastNameLabel"
+        style={styles.input}
+        placeholder="Enter last name"
+        placeholderTextColor="#B0B0B0"
+        textContentType="familyName"
+      />
 
-      {/* Product Description */}
-      <Text style={styles.productDescription}>
-        {product.description}
+      {/* Email */}
+      <Text nativeID="emailLabel" style={styles.label}>
+        Email
       </Text>
+      <TextInput
+        accessibilityLabelledBy="emailLabel"
+        style={styles.input}
+        placeholder="Enter email"
+        placeholderTextColor="#B0B0B0"
+        keyboardType="email-address"
+        textContentType="emailAddress"
+      />
 
-      {/* Product Price */}
-      <Text style={styles.productPrice}>
-        {product.price}
+      {/* Phone */}
+      <Text nativeID="phoneLabel" style={styles.label}>
+        Phone
       </Text>
+      <TextInput
+        accessibilityLabelledBy="phoneLabel"
+        style={styles.input}
+        placeholder="Enter phone number"
+        placeholderTextColor="#B0B0B0"
+        keyboardType="phone-pad"
+        textContentType="telephoneNumber"
+      />
 
-      {/* Add to Cart Button */}
+      {/* Edit Button */}
       <TouchableOpacity
         style={styles.button}
-        accessibilityLabel={`Add ${product.name} to cart`}
-        accessibilityRole="button"
+        accessibilityLabel="Edit profile information"
       >
-        <Text style={styles.buttonText}>Add to Cart</Text>
+        <Text style={styles.buttonText}>Edit</Text>
       </TouchableOpacity>
 
-      {/* Add to Favorites Button */}
+      {/* Save Button */}
       <TouchableOpacity
         style={styles.button}
-        accessibilityLabel={`Add ${product.name} to favorites`}
-        accessibilityRole="button"
+        accessibilityLabel="Save profile information"
       >
-        <Text style={styles.buttonText}>Add to Favorites</Text>
+        <Text style={styles.buttonText}>Save</Text>
       </TouchableOpacity>
     </View>
   );
@@ -59,46 +93,46 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
   },
-  image: {
-    width: '100%',
-    height: 200,
-    resizeMode: 'contain',
-    marginBottom: 16,
+  profilePictureContainer: {
+    alignItems: "center",
+    marginBottom: 20,
   },
-  productName: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#000000', // High contrast with white background
-    marginBottom: 8,
+  profilePicture: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
   },
-  productDescription: {
+  label: {
     fontSize: 16,
-    color: '#333333', // High contrast with white background
-    marginBottom: 16,
+    color: "#000000",
+    marginBottom: 4,
   },
-  productPrice: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#000000', // High contrast with white background
-    marginBottom: 24,
+  input: {
+    height: 40,
+    borderColor: "#CCCCCC",
+    borderWidth: 1,
+    borderRadius: 4,
+    paddingLeft: 8,
+    marginBottom: 12,
+    color: "#000000",
   },
   button: {
-    minWidth: '100%',
-    minHeight: 48, // Meets minimum touch target size
-    backgroundColor: '#007AFF',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 12,
-    borderRadius: 8,
-    marginBottom: 12,
+    minWidth: 160,
+    minHeight: 48,
+    backgroundColor: "#007BFF",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 4,
+    marginBottom: 16,
+    paddingHorizontal: 16,
+    paddingVertical: 10,
   },
   buttonText: {
+    color: "#FFFFFF",
     fontSize: 16,
-    fontWeight: 'bold',
-    color: '#FFFFFF', // High contrast with button background
   },
 });
 
-export default ProductDetailScreen;
+export default ProfileScreen;
