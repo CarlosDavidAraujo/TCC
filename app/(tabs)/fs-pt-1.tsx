@@ -2,64 +2,41 @@ import React from "react";
 import {
   View,
   Text,
-  TextInput,
   TouchableOpacity,
-  Image,
+  FlatList,
   StyleSheet,
-  Button,
+  TextInput,
 } from "react-native";
 
-const PerfilScreen = () => {
+const tasks = [
+  { id: "1", task: "Revisar relatórios", date: "2025-03-27", completed: false },
+  { id: "2", task: "Comprar mantimentos", date: "2025-03-26", completed: true },
+  { id: "3", task: "Lavar roupa", date: "2025-03-25", completed: false },
+];
+
+const TaskListScreen = () => {
   return (
     <View style={styles.container}>
-      {/* Foto de Perfil */}
-      <View style={styles.profileImageContainer}>
-        <Image
-          source={{ uri: "https://example.com/foto-de-perfil.jpg" }}
-          style={styles.profileImage}
-          accessibilityLabel="Foto de perfil do usuário"
-        />
-      </View>
+      <Text style={styles.title}>Lista de Tarefas</Text>
+      <FlatList
+        data={tasks.sort((a, b) => new Date(b.date) - new Date(a.date))}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <View style={styles.taskContainer}>
+            <TouchableOpacity
+              style={styles.checkBoxContainer}
+              onPress={() => console.log(`Tarefa ${item.id} marcada!`)}
+            >
+              <Text style={styles.checkBox}>{item.completed ? "✓" : "○"}</Text>
+            </TouchableOpacity>
 
-      {/* Informações Pessoais */}
-      <View style={styles.infoContainer}>
-        <Text style={styles.infoLabel} accessibilityRole="text">
-          Nome
-        </Text>
-        <Text style={styles.infoText}>João Silva</Text>
-
-        <Text style={styles.infoLabel} accessibilityRole="text">
-          Sobrenome
-        </Text>
-        <Text style={styles.infoText}>Silva</Text>
-
-        <Text style={styles.infoLabel} accessibilityRole="text">
-          E-mail
-        </Text>
-        <Text style={styles.infoText}>joao.silva@email.com</Text>
-
-        <Text style={styles.infoLabel} accessibilityRole="text">
-          Telefone
-        </Text>
-        <Text style={styles.infoText}>+55 11 91234-5678</Text>
-      </View>
-
-      {/* Botões */}
-      <TouchableOpacity
-        style={styles.editButton}
-        accessibilityLabel="Editar informações do perfil"
-        onPress={() => alert("Abrir tela de edição")}
-      >
-        <Text style={styles.buttonText}>Editar</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles.saveButton}
-        accessibilityLabel="Salvar informações do perfil"
-        onPress={() => alert("Salvar alterações")}
-      >
-        <Text style={styles.buttonText}>Salvar</Text>
-      </TouchableOpacity>
+            <View style={styles.taskInfo}>
+              <Text style={styles.taskText}>{item.task}</Text>
+              <Text style={styles.dateText}>{item.date}</Text>
+            </View>
+          </View>
+        )}
+      />
     </View>
   );
 };
@@ -67,57 +44,47 @@ const PerfilScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FFFFFF",
     padding: 16,
+    backgroundColor: "#FFFFFF",
   },
-  profileImageContainer: {
-    alignItems: "center",
-    marginBottom: 20,
-  },
-  profileImage: {
-    width: 120,
-    height: 120,
-    borderRadius: 60,
-  },
-  infoContainer: {
-    marginBottom: 30,
-  },
-  infoLabel: {
-    fontSize: 16,
+  title: {
+    fontSize: 24,
     fontWeight: "bold",
-    color: "#000000", // Contraste adequado
-    marginBottom: 8,
+    color: "#000000",
+    marginBottom: 16,
   },
-  infoText: {
+  taskContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 16,
+    backgroundColor: "#F8F8F8",
+    padding: 12,
+    borderRadius: 8,
+  },
+  checkBoxContainer: {
+    minWidth: 40,
+    minHeight: 40,
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 12,
+    borderRadius: 4,
+    backgroundColor: "#E1E1E1",
+  },
+  checkBox: {
+    fontSize: 24,
+    color: "#000000",
+  },
+  taskInfo: {
+    flex: 1,
+  },
+  taskText: {
+    fontSize: 18,
+    color: "#000000",
+  },
+  dateText: {
     fontSize: 14,
-    color: "#333333", // Contraste adequado
-    marginBottom: 12,
-  },
-  editButton: {
-    backgroundColor: "#007BFF",
-    paddingVertical: 10,
-    paddingHorizontal: 16,
-    borderRadius: 5,
-    minWidth: 150,
-    minHeight: 48, // Tamanho mínimo adequado para o alvo de toque
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 10,
-  },
-  saveButton: {
-    backgroundColor: "#28A745",
-    paddingVertical: 10,
-    paddingHorizontal: 16,
-    borderRadius: 5,
-    minWidth: 150,
-    minHeight: 48, // Tamanho mínimo adequado para o alvo de toque
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  buttonText: {
-    color: "#FFFFFF",
-    fontSize: 16,
+    color: "#555555",
   },
 });
 
-export default PerfilScreen;
+export default TaskListScreen;

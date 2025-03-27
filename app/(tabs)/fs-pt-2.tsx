@@ -2,147 +2,82 @@ import React from "react";
 import {
   View,
   Text,
-  TextInput,
-  Button,
   TouchableOpacity,
-  Image,
+  FlatList,
   StyleSheet,
 } from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome"; // Usando ícones do FontAwesome
 
-const PerfilScreen = () => {
+const tasks = [
+  { id: "1", task: "Comprar leite", date: "2025-03-27" },
+  { id: "2", task: "Ir ao médico", date: "2025-03-25" },
+  { id: "3", task: "Finalizar projeto", date: "2025-03-20" },
+];
+
+const TaskListScreen = () => {
   return (
-    <View style={styles.container}>
-      {/* Foto de perfil */}
-      <View style={styles.profileImageContainer}>
-        <Image
-          source={{ uri: "https://example.com/profile.jpg" }}
-          style={styles.profileImage}
-          accessibilityLabel="Foto de perfil do usuário"
-        />
-      </View>
+    <FlatList
+      data={tasks}
+      keyExtractor={(item) => item.id}
+      renderItem={({ item }) => (
+        <View style={styles.taskContainer}>
+          <TouchableOpacity
+            style={styles.touchableArea}
+            accessibilityLabel={`Selecionar tarefa: ${item.task}`}
+            onPress={() => {
+              // Lógica de marcação da tarefa
+            }}
+          >
+            <Icon name="check-square" size={24} color="#003366" />
+          </TouchableOpacity>
 
-      {/* Informações Pessoais */}
-      <View style={styles.infoContainer}>
-        <Text style={styles.sectionTitle}>Informações Pessoais</Text>
-
-        <Text style={styles.label} accessibilityLabel="Nome">
-          Nome
-        </Text>
-        <TextInput
-          style={styles.input}
-          defaultValue="João Silva"
-          accessibilityLabel="Nome do usuário"
-          editable={false} // Não permite edição
-        />
-
-        <Text style={styles.label} accessibilityLabel="Sobrenome">
-          Sobrenome
-        </Text>
-        <TextInput
-          style={styles.input}
-          defaultValue="Silva"
-          accessibilityLabel="Sobrenome do usuário"
-          editable={false} // Não permite edição
-        />
-
-        <Text style={styles.label} accessibilityLabel="Email">
-          E-mail
-        </Text>
-        <TextInput
-          style={styles.input}
-          defaultValue="joao.silva@example.com"
-          accessibilityLabel="E-mail do usuário"
-          editable={false} // Não permite edição
-        />
-
-        <Text style={styles.label} accessibilityLabel="Telefone">
-          Telefone
-        </Text>
-        <TextInput
-          style={styles.input}
-          defaultValue="(11) 98765-4321"
-          accessibilityLabel="Número de telefone do usuário"
-          editable={false} // Não permite edição
-        />
-      </View>
-
-      {/* Botões de Editar e Salvar */}
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity
-          style={styles.button}
-          accessibilityLabel="Editar perfil"
-        >
-          <Text style={styles.buttonText}>Editar</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.button}
-          accessibilityLabel="Salvar alterações"
-          onPress={() => alert("Salvo!")}
-        >
-          <Text style={styles.buttonText}>Salvar</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+          <View style={styles.taskDetails}>
+            <Text
+              style={styles.taskText}
+              accessibilityLabel={`Tarefa: ${item.task}`}
+            >
+              {item.task}
+            </Text>
+            <Text
+              style={styles.dateText}
+              accessibilityLabel={`Data da tarefa: ${item.date}`}
+            >
+              {item.date}
+            </Text>
+          </View>
+        </View>
+      )}
+    />
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-    backgroundColor: "#FFFFFF",
-  },
-  profileImageContainer: {
-    alignItems: "center",
-    marginBottom: 16,
-  },
-  profileImage: {
-    width: 120,
-    height: 120,
-    borderRadius: 60,
-  },
-  infoContainer: {
-    marginBottom: 24,
-  },
-  sectionTitle: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#000000",
-    marginBottom: 8,
-  },
-  label: {
-    fontSize: 16,
-    color: "#000000",
-    marginBottom: 4,
-  },
-  input: {
-    height: 40,
-    borderColor: "#CCCCCC",
-    borderWidth: 1,
-    borderRadius: 8,
-    paddingLeft: 8,
-    marginBottom: 12,
-    color: "#000000",
-  },
-  buttonContainer: {
+  taskContainer: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    alignItems: "center",
+    padding: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: "#DDD",
   },
-  button: {
-    minWidth: 120,
-    height: 48,
-    backgroundColor: "#4CAF50",
+  touchableArea: {
+    minWidth: 40,
+    minHeight: 40,
+    padding: 8,
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 8,
-    paddingHorizontal: 16,
   },
-  buttonText: {
-    color: "#FFFFFF",
+  taskDetails: {
+    flex: 1,
+    marginLeft: 10,
+  },
+  taskText: {
     fontSize: 16,
-    fontWeight: "bold",
+    color: "#000000", // Contraste adequado com o fundo
+  },
+  dateText: {
+    fontSize: 14,
+    color: "#555555", // Contraste adequado, sem confundir com o texto principal
   },
 });
 
-export default PerfilScreen;
+export default TaskListScreen;

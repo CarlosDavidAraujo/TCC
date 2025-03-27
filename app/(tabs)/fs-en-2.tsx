@@ -2,95 +2,48 @@ import React from "react";
 import {
   View,
   Text,
-  TextInput,
   TouchableOpacity,
-  Image,
   StyleSheet,
+  FlatList,
 } from "react-native";
 
-const ProfileView = () => {
+// Sample Todo list data
+const todoList = [
+  { id: "1", task: "Finish homework", date: "2025-03-27", completed: false },
+  { id: "2", task: "Buy groceries", date: "2025-03-26", completed: true },
+  { id: "3", task: "Clean the house", date: "2025-03-25", completed: false },
+];
+
+const TodoListScreen = () => {
   return (
     <View style={styles.container}>
-      {/* Profile Picture */}
-      <View style={styles.profileImageContainer}>
-        <Image
-          source={{ uri: "https://example.com/profile.jpg" }}
-          style={styles.profileImage}
-          accessibilityLabel="User's profile picture"
-        />
-      </View>
-
-      {/* First Name */}
-      <View style={styles.fieldContainer}>
-        <Text nativeID="firstNameLabel" style={styles.label}>
-          First Name
-        </Text>
-        <TextInput
-          accessibilityLabelledBy="firstNameLabel"
-          style={styles.input}
-          value="John"
-          editable={false}
-          placeholder="First Name"
-        />
-      </View>
-
-      {/* Last Name */}
-      <View style={styles.fieldContainer}>
-        <Text nativeID="lastNameLabel" style={styles.label}>
-          Last Name
-        </Text>
-        <TextInput
-          accessibilityLabelledBy="lastNameLabel"
-          style={styles.input}
-          value="Doe"
-          editable={false}
-          placeholder="Last Name"
-        />
-      </View>
-
-      {/* Email */}
-      <View style={styles.fieldContainer}>
-        <Text nativeID="emailLabel" style={styles.label}>
-          Email
-        </Text>
-        <TextInput
-          accessibilityLabelledBy="emailLabel"
-          style={styles.input}
-          value="john.doe@example.com"
-          editable={false}
-          placeholder="Email Address"
-        />
-      </View>
-
-      {/* Phone */}
-      <View style={styles.fieldContainer}>
-        <Text nativeID="phoneLabel" style={styles.label}>
-          Phone
-        </Text>
-        <TextInput
-          accessibilityLabelledBy="phoneLabel"
-          style={styles.input}
-          value="(555) 123-4567"
-          editable={false}
-          placeholder="Phone Number"
-        />
-      </View>
-
-      {/* Edit Button */}
-      <TouchableOpacity
-        style={styles.button}
-        accessibilityLabel="Edit profile information"
-      >
-        <Text style={styles.buttonText}>Edit</Text>
-      </TouchableOpacity>
-
-      {/* Save Button */}
-      <TouchableOpacity
-        style={styles.button}
-        accessibilityLabel="Save profile information"
-      >
-        <Text style={styles.buttonText}>Save</Text>
-      </TouchableOpacity>
+      <FlatList
+        data={todoList}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <View style={styles.todoItem}>
+            <TouchableOpacity
+              style={styles.checkboxWrapper}
+              onPress={() => {}}
+              accessible={true}
+              accessibilityLabel={`Toggle completion for ${item.task}`}
+            >
+              <Text style={styles.checkbox}>{item.completed ? "☑" : "☐"}</Text>
+            </TouchableOpacity>
+            <View style={styles.textContainer}>
+              <Text style={styles.taskText} accessibilityLabel={item.task}>
+                {item.task}
+              </Text>
+              <Text
+                style={styles.dateText}
+                accessibilityLabel={`Due date: ${item.date}`}
+              >
+                {item.date}
+              </Text>
+            </View>
+          </View>
+        )}
+      />
     </View>
   );
 };
@@ -98,49 +51,42 @@ const ProfileView = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    padding: 16,
+    backgroundColor: "#f9f9f9",
+  },
+  todoItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 16,
     backgroundColor: "#FFFFFF",
+    padding: 12,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: "#ddd",
   },
-  profileImageContainer: {
+  checkboxWrapper: {
+    minWidth: 40,
+    minHeight: 40,
+    padding: 8,
+    justifyContent: "center",
     alignItems: "center",
-    marginBottom: 20,
+    marginRight: 16,
   },
-  profileImage: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
+  checkbox: {
+    fontSize: 24,
+    color: "#000000", // Ensures high contrast between checkbox and background
   },
-  fieldContainer: {
-    marginBottom: 15,
+  textContainer: {
+    flex: 1,
   },
-  label: {
-    color: "#000000",
+  taskText: {
     fontSize: 16,
-    fontWeight: "bold",
+    color: "#000000", // Black text for high contrast
   },
-  input: {
-    backgroundColor: "#F0F0F0",
-    padding: 10,
-    marginTop: 5,
-    borderRadius: 5,
-    color: "#000000",
-    fontSize: 16,
-  },
-  button: {
-    backgroundColor: "#007BFF",
-    paddingVertical: 12,
-    paddingHorizontal: 20,
-    borderRadius: 5,
-    alignItems: "center",
-    marginTop: 20,
-    minWidth: 100,
-    minHeight: 48,
-  },
-  buttonText: {
-    color: "#FFFFFF",
-    fontSize: 16,
-    fontWeight: "bold",
+  dateText: {
+    fontSize: 14,
+    color: "#333333", // Slightly darker gray for the date
   },
 });
 
-export default ProfileView;
+export default TodoListScreen;

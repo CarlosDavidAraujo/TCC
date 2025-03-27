@@ -2,132 +2,100 @@ import React from "react";
 import {
   View,
   Text,
-  TextInput,
-  Button,
   TouchableOpacity,
-  Image,
+  FlatList,
   StyleSheet,
+  Switch,
 } from "react-native";
 
-const ProfileScreen = () => {
-  return (
-    <View style={styles.container}>
-      {/* Foto de perfil */}
-      <View style={styles.profileImageContainer}>
-        <Image
-          source={{ uri: "https://example.com/profile.jpg" }}
-          style={styles.profileImage}
-          accessibilityLabel="Foto de perfil do usuário"
-        />
+const tasks = [
+  {
+    id: "1",
+    task: "Comprar mantimentos",
+    date: "2025-03-27",
+    completed: false,
+  },
+  { id: "2", task: "Reunião com o time", date: "2025-03-26", completed: true },
+  { id: "3", task: "Pagar contas", date: "2025-03-25", completed: false },
+];
+
+const TaskList = () => {
+  const renderItem = ({ item }) => (
+    <View style={styles.taskContainer}>
+      <Text style={styles.dateText}>{item.date}</Text>
+      <View style={styles.taskContent}>
+        <TouchableOpacity
+          style={styles.touchable}
+          accessibilityLabel={`Tarefa: ${item.task}`}
+          onPress={() => console.log(`Selecionando tarefa: ${item.task}`)}
+        >
+          <Text style={styles.taskText}>{item.task}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.checkboxContainer}
+          onPress={() =>
+            console.log(`Alternando status de conclusão da tarefa ${item.task}`)
+          }
+          accessibilityLabel={`Alternar status da tarefa: ${item.task}`}
+        >
+          <Switch
+            value={item.completed}
+            onValueChange={(value) =>
+              console.log(
+                `Novo status: ${value ? "Concluída" : "Não concluída"}`
+              )
+            }
+            accessibilityLabel={`Status da tarefa ${item.task}: ${
+              item.completed ? "Concluída" : "Não concluída"
+            }`}
+          />
+        </TouchableOpacity>
       </View>
-
-      {/* Nome */}
-      <Text style={styles.label}>Nome:</Text>
-      <TextInput
-        style={styles.input}
-        value="João Silva"
-        editable={false}
-        accessibilityLabel="Nome do usuário"
-        placeholder="Nome"
-      />
-
-      {/* Sobrenome */}
-      <Text style={styles.label}>Sobrenome:</Text>
-      <TextInput
-        style={styles.input}
-        value="Silva"
-        editable={false}
-        accessibilityLabel="Sobrenome do usuário"
-        placeholder="Sobrenome"
-      />
-
-      {/* E-mail */}
-      <Text style={styles.label}>E-mail:</Text>
-      <TextInput
-        style={styles.input}
-        value="joao.silva@email.com"
-        editable={false}
-        accessibilityLabel="E-mail do usuário"
-        placeholder="E-mail"
-      />
-
-      {/* Telefone */}
-      <Text style={styles.label}>Telefone:</Text>
-      <TextInput
-        style={styles.input}
-        value="1234-5678"
-        editable={false}
-        accessibilityLabel="Telefone do usuário"
-        placeholder="Telefone"
-      />
-
-      {/* Botão Editar */}
-      <TouchableOpacity
-        style={styles.button}
-        accessibilityLabel="Editar informações do perfil"
-      >
-        <Text style={styles.buttonText}>Editar</Text>
-      </TouchableOpacity>
-
-      {/* Botão Salvar */}
-      <TouchableOpacity
-        style={styles.button}
-        accessibilityLabel="Salvar informações do perfil"
-      >
-        <Text style={styles.buttonText}>Salvar</Text>
-      </TouchableOpacity>
     </View>
+  );
+
+  return (
+    <FlatList
+      data={tasks}
+      keyExtractor={(item) => item.id}
+      renderItem={renderItem}
+    />
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+  taskContainer: {
+    marginBottom: 16,
     padding: 16,
-    backgroundColor: "#FFFFFF",
-  },
-  profileImageContainer: {
-    alignItems: "center",
-    marginBottom: 16,
-  },
-  profileImage: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-  },
-  label: {
-    fontSize: 16,
-    fontWeight: "bold",
-    color: "#000000",
-    marginTop: 12,
-  },
-  input: {
-    height: 40,
-    borderColor: "#CCCCCC",
+    backgroundColor: "#f8f8f8",
+    borderRadius: 8,
+    borderColor: "#ddd",
     borderWidth: 1,
-    borderRadius: 4,
-    paddingHorizontal: 8,
-    fontSize: 16,
-    color: "#000000",
-    backgroundColor: "#F5F5F5",
-    marginBottom: 16,
   },
-  button: {
-    minWidth: 150,
-    minHeight: 48,
-    paddingVertical: 12,
-    paddingHorizontal: 24,
-    backgroundColor: "#007BFF",
-    borderRadius: 4,
+  taskContent: {
+    flexDirection: "row",
+    justifyContent: "space-between",
     alignItems: "center",
-    justifyContent: "center",
-    marginBottom: 16,
   },
-  buttonText: {
-    color: "#FFFFFF",
+  taskText: {
     fontSize: 16,
-    fontWeight: "bold",
+    color: "#000000", // Contraste adequado com fundo claro
+  },
+  dateText: {
+    fontSize: 14,
+    color: "#444444", // Contraste adequado com fundo claro
+    marginBottom: 8,
+  },
+  touchable: {
+    minWidth: 48,
+    minHeight: 48,
+    padding: 8,
+  },
+  checkboxContainer: {
+    minWidth: 48,
+    minHeight: 48,
+    padding: 8,
   },
 });
 
-export default ProfileScreen;
+export default TaskList;

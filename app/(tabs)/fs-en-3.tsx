@@ -1,90 +1,65 @@
+import Checkbox from "expo-checkbox";
 import React from "react";
 import {
   View,
   Text,
-  TextInput,
   TouchableOpacity,
-  Image,
+  FlatList,
   StyleSheet,
 } from "react-native";
 
-const ProfileScreen = () => {
+const TodoListScreen = () => {
+  const todoList = [
+    {
+      id: "1",
+      task: "Complete React Native project",
+      date: "2025-03-27",
+      isChecked: false,
+    },
+    {
+      id: "2",
+      task: "Attend team meeting",
+      date: "2025-03-26",
+      isChecked: false,
+    },
+    { id: "3", task: "Write blog post", date: "2025-03-25", isChecked: false },
+  ];
+
   return (
     <View style={styles.container}>
-      {/* Profile Picture */}
-      <View style={styles.profilePictureContainer}>
-        <Image
-          source={{ uri: "https://example.com/profile-picture.jpg" }}
-          style={styles.profilePicture}
-          accessibilityLabel="Profile picture"
-        />
-      </View>
-
-      {/* First Name */}
-      <Text nativeID="firstNameLabel" style={styles.label}>
-        First Name
-      </Text>
-      <TextInput
-        accessibilityLabelledBy="firstNameLabel"
-        style={styles.input}
-        placeholder="Enter first name"
-        placeholderTextColor="#B0B0B0"
-        textContentType="givenName"
+      <FlatList
+        data={todoList}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <View style={styles.todoItem}>
+            <TouchableOpacity
+              style={styles.checkboxContainer}
+              onPress={() => {}}
+              accessibilityLabel={`Toggle the checkbox for task ${item.task}`}
+            >
+              <Checkbox
+                value={item.isChecked}
+                onValueChange={() => {}}
+                accessibilityLabel={`Checkbox for task: ${item.task}`}
+              />
+            </TouchableOpacity>
+            <View style={styles.taskContainer}>
+              <Text
+                style={styles.taskText}
+                accessibilityLabel={`Task: ${item.task}`}
+              >
+                {item.task}
+              </Text>
+              <Text
+                style={styles.dateText}
+                accessibilityLabel={`Due date: ${item.date}`}
+              >
+                {item.date}
+              </Text>
+            </View>
+          </View>
+        )}
       />
-
-      {/* Last Name */}
-      <Text nativeID="lastNameLabel" style={styles.label}>
-        Last Name
-      </Text>
-      <TextInput
-        accessibilityLabelledBy="lastNameLabel"
-        style={styles.input}
-        placeholder="Enter last name"
-        placeholderTextColor="#B0B0B0"
-        textContentType="familyName"
-      />
-
-      {/* Email */}
-      <Text nativeID="emailLabel" style={styles.label}>
-        Email
-      </Text>
-      <TextInput
-        accessibilityLabelledBy="emailLabel"
-        style={styles.input}
-        placeholder="Enter email"
-        placeholderTextColor="#B0B0B0"
-        keyboardType="email-address"
-        textContentType="emailAddress"
-      />
-
-      {/* Phone */}
-      <Text nativeID="phoneLabel" style={styles.label}>
-        Phone
-      </Text>
-      <TextInput
-        accessibilityLabelledBy="phoneLabel"
-        style={styles.input}
-        placeholder="Enter phone number"
-        placeholderTextColor="#B0B0B0"
-        keyboardType="phone-pad"
-        textContentType="telephoneNumber"
-      />
-
-      {/* Edit Button */}
-      <TouchableOpacity
-        style={styles.button}
-        accessibilityLabel="Edit profile information"
-      >
-        <Text style={styles.buttonText}>Edit</Text>
-      </TouchableOpacity>
-
-      {/* Save Button */}
-      <TouchableOpacity
-        style={styles.button}
-        accessibilityLabel="Save profile information"
-      >
-        <Text style={styles.buttonText}>Save</Text>
-      </TouchableOpacity>
     </View>
   );
 };
@@ -95,44 +70,31 @@ const styles = StyleSheet.create({
     padding: 16,
     backgroundColor: "#FFFFFF",
   },
-  profilePictureContainer: {
+  todoItem: {
+    flexDirection: "row",
     alignItems: "center",
-    marginBottom: 20,
+    marginBottom: 16,
   },
-  profilePicture: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-  },
-  label: {
-    fontSize: 16,
-    color: "#000000",
-    marginBottom: 4,
-  },
-  input: {
-    height: 40,
-    borderColor: "#CCCCCC",
-    borderWidth: 1,
-    borderRadius: 4,
-    paddingLeft: 8,
-    marginBottom: 12,
-    color: "#000000",
-  },
-  button: {
-    minWidth: 160,
-    minHeight: 48,
-    backgroundColor: "#007BFF",
+  checkboxContainer: {
+    minWidth: 40,
+    minHeight: 40,
+    padding: 8,
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 4,
-    marginBottom: 16,
-    paddingHorizontal: 16,
-    paddingVertical: 10,
   },
-  buttonText: {
-    color: "#FFFFFF",
+  taskContainer: {
+    marginLeft: 16,
+    flex: 1,
+  },
+  taskText: {
     fontSize: 16,
+    fontWeight: "bold",
+    color: "#000000", // Ensuring sufficient contrast for readability
+  },
+  dateText: {
+    fontSize: 14,
+    color: "#666666", // Ensuring readable contrast with background
   },
 });
 
-export default ProfileScreen;
+export default TodoListScreen;
